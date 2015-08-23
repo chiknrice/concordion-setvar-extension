@@ -62,7 +62,6 @@ bintray {
     pkg {
         repo = 'maven'
         name = 'concordion-setvar-extension'
-        userOrg = 'bintray_user'
         licenses = ['GPL-3.0']
         vcsUrl = 'https://github.com/chiknrice/concordion-setvar-extension.git'
     }
