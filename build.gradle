@@ -58,7 +58,7 @@ apply plugin: 'net.researchgate.release'
 
 bintray {
     user = System.getenv('BINTRAY_USER')
-    apiKey = System.getenv('BINTRAY_API_KEY')
+    key = System.getenv('BINTRAY_API_KEY')
     pkg {
         repo = 'maven'
         name = 'concordion-setvar-extension'
