@@ -19,4 +19,4 @@ before_install:
   - chmod +x gradlew
 
 after_success:
-  - test "${TRAVIS_TAG}" != "" && test "${TRAVIS_JDK_VERSION}" == "oraclejdk7" && ./gradlew bintrayUpload
+  - ./gradlew bintrayUpload
