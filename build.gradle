@@ -1,0 +1,43 @@
+description = 'A concordion extension to allow setting of variables in different ways including a map using table rows'
+
+group 'org.chiknrice'
+version '0.1-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'maven-publish'
+
+sourceCompatibility = 1.7
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.slf4j:slf4j-api:1.7.10', 'org.concordion:concordion:1.5.1'
+    testCompile 'junit:junit:4.11', 'org.concordion:concordion:1.5.1:tests'
+    testRuntime 'org.slf4j:slf4j-simple:1.7.10'
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    from 'build/docs/javadoc'
+}
+
+task sourceJar(type: Jar) {
+    from sourceSets.main.allJava
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+
+            artifact sourceJar {
+                classifier "sources"
+            }
+
+            artifact javadocJar {
+                classifier 'javadoc'
+            }
+        }
+    }
+}
