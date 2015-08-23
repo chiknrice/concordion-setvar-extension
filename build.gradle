@@ -56,8 +56,6 @@ buildscript {
 apply plugin: 'com.jfrog.bintray'
 apply plugin: 'net.researchgate.release'
 
-println
-
 bintray {
     user = System.getenv('env.BINTRAY_USER')
     key = System.getenv('env.BINTRAY_API_KEY')
