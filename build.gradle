@@ -67,3 +67,7 @@ bintray {
         vcsUrl = 'https://github.com/chiknrice/concordion-setvar-extension.git'
     }
 }
+
+release {
+    tagTemplate = 'v${version}'
+}
