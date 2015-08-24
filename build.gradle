@@ -54,6 +54,8 @@ bintray {
 }
 
 def pomConfig = {
+    name project.name
+    url "https://github.com/chiknrice/${project.name}"
     scm {
         url "https://github.com/chiknrice/concordion-setvar-extension"
         connection "scm:git:git@github.com:chiknrice/concordion-setvar-extension.git"
@@ -85,7 +87,7 @@ publishing {
             artifact javadocJar
 
             pom.withXml {
-                asNode().children().last().plus(pomConfig)
+                asNode().appendNode("description", project.description).plus(pomConfig)
             }
         }
     }
