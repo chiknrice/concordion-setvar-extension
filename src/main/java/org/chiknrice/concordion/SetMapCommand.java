@@ -34,17 +34,13 @@ public class SetMapCommand extends AbstractSetCommand {
     @Override
     public void setUp(CommandCall commandCall, Evaluator evaluator, ResultRecorder resultRecorder) {
         if (commandCall.getElement().isNamed("table")) {
-            if (commandCall.hasChildCommands()) {
-                commandCall.getChildren().processSequentially(evaluator, resultRecorder);
-            }
-
             Table table = new Table(commandCall.getElement());
             Row header = table.getLastHeaderRow();
             int columnCount = header.getCells().length;
             int keyColumnIndex = -1;
             int valueColumnIndex = -1;
             for (Element thCell : header.getCells()) {
-                String mapAttrValue = thCell.getAttributeValue("setAs", SetVarCommandExtension.NAMESPACE);
+                String mapAttrValue = thCell.getAttributeValue("columnAs", SetVarCommandExtension.NAMESPACE);
                 if (mapAttrValue != null) {
                     switch (mapAttrValue) {
                         case "key":
