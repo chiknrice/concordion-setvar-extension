@@ -48,6 +48,8 @@ public abstract class AbstractSetCommand extends AbstractCommand {
             Object result = evaluator.evaluate(expression);
             if (result != null) {
                 e.appendText(result.toString());
+                e.addAttribute("title", expression);
+                e.addStyleClass("cr-eval");
             } else {
                 Element child = new Element("em");
                 child.appendText("null");

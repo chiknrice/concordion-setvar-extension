@@ -14,6 +14,12 @@
  *
  */
 .cr-tooltip {
-    color: darkblue;
+    color: darkgray;
+    font-style: italic;
     font-weight: bold;
+}
+
+.cr-eval {
+    color: darkgray;
+    font-style: italic;
 }
