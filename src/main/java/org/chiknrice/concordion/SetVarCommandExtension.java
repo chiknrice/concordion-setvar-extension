@@ -31,6 +31,7 @@ public class SetVarCommandExtension implements ConcordionExtension {
     @Override
     public void addTo(ConcordionExtender concordionExtender) {
         concordionExtender.withCommand(NAMESPACE, "setMap", new SetMapCommand());
+        concordionExtender.withCommand(NAMESPACE, "setList", new SetListCommand());
         concordionExtender.withCommand(NAMESPACE, "alias", new AliasVarCommand());
         concordionExtender.withCommand(NAMESPACE, "concat", new ConcatCommand());
         concordionExtender.withCommand(NAMESPACE, "tooltip", new TooltipCommand());
