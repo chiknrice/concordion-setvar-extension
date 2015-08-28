@@ -97,3 +97,6 @@ release {
     tagTemplate = 'v${version}'
 }
 
+test {
+    systemProperties['concordion.output.dir'] = "$reporting.baseDir/spec"
+}

@@ -27,6 +27,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * Sets a map from a table using a setMap attribute.  Keys and values taken from columns which are defined by setAs
+ * attribute.  Possible values of setAs attribute are 'key' or 'value'
+ *
  * @author <a href="mailto:chiknrice@gmail.com">Ian Bondoc</a>
  */
 public class SetMapCommand extends AbstractSetCommand {
@@ -40,9 +43,9 @@ public class SetMapCommand extends AbstractSetCommand {
             int keyColumnIndex = -1;
             int valueColumnIndex = -1;
             for (Element thCell : header.getCells()) {
-                String mapAttrValue = thCell.getAttributeValue("columnAs", SetVarCommandExtension.NAMESPACE);
-                if (mapAttrValue != null) {
-                    switch (mapAttrValue) {
+                String columnAs = thCell.getAttributeValue("columnAs", SetVarCommandExtension.NAMESPACE);
+                if (columnAs != null) {
+                    switch (columnAs) {
                         case "key":
                             keyColumnIndex = header.getIndexOfCell(thCell);
                             break;
@@ -50,7 +53,7 @@ public class SetMapCommand extends AbstractSetCommand {
                             valueColumnIndex = header.getIndexOfCell(thCell);
                             break;
                         default:
-                            throw new RuntimeException("Unsupported map attribute value " + mapAttrValue);
+                            throw new RuntimeException("Unsupported columnAs attribute value " + columnAs);
                     }
                 }
             }

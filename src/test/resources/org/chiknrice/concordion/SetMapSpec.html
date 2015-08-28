@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:c="http://www.concordion.org/2007/concordion" xmlns:i="http://www.chiknrice.org/concordion">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Set Map Command</title>
+</head>
+<body>
+
+<h1>Set Map Command</h1>
+
+<p>
+    <code>setMap</code> command provides functionality to set a specified variable to a <code>java.util.Map</code>
+    which is constructed from <code>td</code> values with the help of <code>th</code> tags instrumented with <code>columnAs="key"</code>
+    and <code>columnAs="value"</code>
+</p>
+
+<div class="example">
+
+    <p>
+        <b>Given</b> the following <code>table</code> is <span data-source="mapSource">instrumented</span> with <code>i:setMap="#theMap"</code>
+    </p>
+
+    <table i:setMap="#theMap">
+        <tr>
+            <th i:columnAs="key">Key</th>
+            <th i:columnAs="value">Value</th>
+            <th>Comment</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>a</td>
+            <td>A row</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>b</td>
+            <td>B row</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>c</td>
+            <td>C row</td>
+        </tr>
+    </table>
+
+    <p>
+        <b>And</b> <code>#key</code> is <span c:set="#key">2</span>
+    </p>
+
+    <p>
+        <b>Then</b> <code>#theMap.size()</code> should evaluate to <span c:assertEquals="#theMap.size()">3</span>
+    </p>
+
+    <p>
+        <b>And</b> <code>#theMap.get(#key)</code> should evaluate to <span c:assertEquals="#theMap.get(#key)">b</span>
+    </p>
+
+</div>
+
+<div id="mapSource" class="source">
+    <pre>
+&lt;table <span class="instrument">i:setMap=&quot;#theMap&quot;</span>&gt;
+    &lt;tr&gt;
+        &lt;th <span class="instrument">i:columnAs=&quot;key&quot;</span>&gt;Key&lt;/th&gt;
+        &lt;th <span class="instrument">i:columnAs=&quot;value&quot;</span>&gt;Value&lt;/th&gt;
+        &lt;th&gt;Comment&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;a&lt;/td&gt;
+        &lt;td&gt;A row&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;2&lt;/td&gt;
+        &lt;td&gt;b&lt;/td&gt;
+        &lt;td&gt;B row&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;3&lt;/td&gt;
+        &lt;td&gt;c&lt;/td&gt;
+        &lt;td&gt;C row&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;
+    </pre>
+</div>
+
+</body>
+</html>

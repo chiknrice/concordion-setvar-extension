@@ -1,0 +1,54 @@
+<html lang="en" xmlns:c="http://www.concordion.org/2007/concordion" xmlns:i="http://www.chiknrice.org/concordion">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Set List Command</title>
+</head>
+<body>
+
+<h1>Set List Command</h1>
+
+<p>
+    <code>setList</code> command provides functionality to set a specified variable to a <code>java.util.List</code>
+    which is constructed with the <code>li</code> values within a <code>ul</code> tag.
+</p>
+
+<div class="example">
+
+    <p>
+        <b>Given</b> the following <code>ul</code> <span data-source="ulSource">instrumented</span> with
+        <code>i:setList="#theList"</code>
+    </p>
+    <ul i:setList="#theList">
+        <li>A</li>
+        <li>B</li>
+        <li>C</li>
+    </ul>
+    <p>
+        <b>And</b> <code>#index</code> is <span c:set="#index">1</span>
+    </p>
+
+    <p>
+        <b>Then</b> <code>#theList.size()</code> should evaluate to <span c:assertEquals="#theList.size()">3</span>
+    </p>
+
+    <p>
+        // [NB] lists are 0 indexed
+        <br/>
+        <b>And</b> <code>#theList.get(#index)</code> should evaluate to <span
+            c:assertEquals="#theList.get(#index)">B</span>
+    </p>
+
+</div>
+
+<div id="ulSource" class="source">
+    <pre>
+&lt;ul <span class="instrument">i:setList=&quot;#theList&quot;</span>&gt;
+    &lt;li&gt;A&lt;/li&gt;
+    &lt;li&gt;B&lt;/li&gt;
+    &lt;li&gt;C&lt;/li&gt;
+&lt;/ul&gt;
+    </pre>
+</div>
+
+</body>
+</html>
