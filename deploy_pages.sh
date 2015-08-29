@@ -23,6 +23,9 @@ cp -R ../build/reports/spec/* concordion-setvar-extension/$VER
 
 cd concordion-setvar-extension
 
+git config user.email "chiknrice@gmail.com"
+git config user.name "Travis CI"
+
 git add .
 git commit -m "Update concordion spec result"
 
