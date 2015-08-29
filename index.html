@@ -1,6 +1,6 @@
 <!doctype html>
 <html>
-  <head>
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <title>concordion-setvar-extension by chiknrice</title>
@@ -9,44 +9,83 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script src="javascripts/respond.js"></script>
     <!--[if lt IE 9]>
-      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
     <!--[if lt IE 8]>
     <link rel="stylesheet" href="stylesheets/ie.css">
     <![endif]-->
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
-  </head>
-  <body>
-      <div id="header">
-        <nav>
-          <li class="fork"><a href="https://github.com/chiknrice/concordion-setvar-extension">View On GitHub</a></li>
-          <li class="downloads"><a href="https://bintray.com/chiknrice/maven/concordion-setvar-extension/_latestVersion">JAR</a></li>
-          <li class="title">DOWNLOADS</li>
-        </nav>
-      </div><!-- end header -->
+</head>
+<body>
+<div id="header">
+    <nav>
+        <li class="fork"><a href="https://github.com/chiknrice/concordion-setvar-extension">View On GitHub</a></li>
+        <li class="downloads"><a href="https://bintray.com/chiknrice/maven/concordion-setvar-extension/_latestVersion">JAR</a>
+        </li>
+        <li class="title">DOWNLOADS</li>
+    </nav>
+</div>
+<!-- end header -->
 
-    <div class="wrapper">
+<div class="wrapper">
 
-      <section>
+    <section>
         <div id="title">
-          <h1>concordion-setvar-extension</h1>
-          <p>A concordion extension which allows creation of complex data structures in the spec and set it to variables before execute</p>
-          <hr>
-          <span class="credits left">Project maintained by <a href="https://github.com/chiknrice">chiknrice</a></span>
-          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></span>
+            <h1>concordion-setvar-extension</h1>
+
+            <p>A concordion extension which allows creation of complex data structures in the spec and set it to
+                variables before execute</p>
+            <hr>
+            <span class="credits left">Project maintained by <a href="https://github.com/chiknrice">chiknrice</a></span>
+            <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a
+                    href="https://twitter.com/michigangraham">mattgraham</a></span>
         </div>
 
         <h1>
-<a id="concordion-setvar-extension" class="anchor" href="#concordion-setvar-extension" aria-hidden="true"><span class="octicon octicon-link"></span></a>concordion-setvar-extension</h1>
+            <a id="concordion-setvar-extension" class="anchor" href="#concordion-setvar-extension"
+               aria-hidden="true"><span class="octicon octicon-link"></span></a>concordion-setvar-extension</h1>
 
-<p><a href="https://travis-ci.org/chiknrice/concordion-setvar-extension"><img src="https://travis-ci.org/chiknrice/concordion-setvar-extension.svg?branch=master" alt="Build Status"></a> <a href="https://coveralls.io/github/chiknrice/concordion-setvar-extension?branch=master"><img src="https://coveralls.io/repos/chiknrice/concordion-setvar-extension/badge.svg?branch=master&amp;service=github" alt="Coverage Status"></a> <a href="https://bintray.com/chiknrice/maven/concordion-setvar-extension/_latestVersion"> <img src="https://api.bintray.com/packages/chiknrice/maven/concordion-setvar-extension/images/download.svg" alt="Download"> </a> </p>
+        <p><a href="https://travis-ci.org/chiknrice/concordion-setvar-extension"><img
+                src="https://travis-ci.org/chiknrice/concordion-setvar-extension.svg?branch=master" alt="Build Status"></a>
+            <a href="https://coveralls.io/github/chiknrice/concordion-setvar-extension?branch=master"><img
+                    src="https://coveralls.io/repos/chiknrice/concordion-setvar-extension/badge.svg?branch=master&amp;service=github"
+                    alt="Coverage Status"></a> <a
+                    href="https://bintray.com/chiknrice/maven/concordion-setvar-extension/_latestVersion"> <img
+                    src="https://api.bintray.com/packages/chiknrice/maven/concordion-setvar-extension/images/download.svg"
+                    alt="Download"> </a></p>
 
-<p>A concordion extension which allows creation of complex data structures in the spec and set it to variables before execute.</p>
-      </section>
+        <p>
+            One limitation of concordion is setting a variable with a complex data structure such as a map without
+            having to resort to calling execute commands to build the map in the fixture. Calling fixtures for setting
+            up test data would mean state is required to be maintained within the fixture and this approach would
+            certainly cause issues if we would want to execute tests in parallel. Although complex structures can be
+            achieved with notations such as <code>#{'key':'value'}</code>, it would be helpful to show these test data
+            as a table and instrument it with concordion commands.
+        </p>
 
-    </div>
-    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
-    
-  </body>
+        <p>
+            Another problem that this extension addresses is when a variable is intended to be set to a setting a
+            variable to a dynamic value. Sometime the specification requires comparing a value to another value which
+            can only be determined evaluating an expression.
+        </p>
+
+        <p>
+            The set var extension command set solves these problems with commands which build test data within the
+            specification html. The set var also introduces the concept of <code>eval</code> which evaluates the
+            specified expressions prior to building the complex data structures needed.
+        </p>
+
+        <p>
+            The latest concordion specifications for concordion-setvar-extension can be found <a
+                href="latest/org/chiknrice/concordion/spec/Spec.html">here</a>
+        </p>
+
+    </section>
+
+</div>
+<!--[if !IE]>
+<script>fixScale(document);</script><![endif]-->
+
+</body>
 </html>
