@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:c="http://www.concordion.org/2007/concordion" xmlns:i="http://www.chiknrice.org/concordion">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Set Eval Command</title>
+</head>
+<body>
+
+<h1>Set Eval Command</h1>
+
+<p>
+    <code>set</code> command allows a variable to be set to values evaluated from the expression specified by
+    <code>eval</code> command.
+</p>
+
+<div class="example">
+
+    <p>
+        <b>Given</b> a String <span c:set="#aString">test</span> set to <code>#aString</code>
+    </p>
+
+    <p>
+        <b>And</b> an empty <code>span</code> instrumented with <code>set="#theLength"</code> and
+        <code>eval="#aString.length()"</code>
+        <span i:set="#theLength" i:eval="#aString.length()"></span>
+    </p>
+
+    <p>
+        <b>Then</b> <code>#theLength</code> should evaluate to <span c:assertEquals="#theLength">4</span>
+    </p>
+
+</div>
+
+</body>
+</html>

@@ -21,21 +21,22 @@ import org.concordion.api.ResultRecorder;
 import org.concordion.internal.util.Check;
 
 /**
- * Sets the command expression to the value of the expression specified in the body of the span element.
+ * Sets the command expression to the evaluated value of the expression specified in the eval command.
  *
  * @author <a href="mailto:chiknrice@gmail.com">Ian Bondoc</a>
  */
-public class AliasVarCommand extends AbstractSetCommand {
+public class SetEvalCommand extends AbstractSetCommand {
 
     @Override
     public void setUp(CommandCall commandCall, Evaluator evaluator, ResultRecorder resultRecorder) {
         Check.isFalse(commandCall.hasChildCommands(), "Nesting commands inside a 'alias' is not supported");
         Check.isTrue(commandCall.getElement().getLocalName().equals("span"),
                 "'alias' command can only be used on <span> element");
-        String varName = commandCall.getElement().getAttributeValue("var", SetVarCommandExtension.NAMESPACE);
-        Check.isTrue(varName != null,
-                "'alias' command requires 'var' command to specify an existing concordion variable");
-        evaluator.setVariable(commandCall.getExpression(), evaluator.getVariable(varName));
+        String expr = commandCall.getElement().getAttributeValue("eval", SetVarCommandExtension.NAMESPACE);
+        Check.isTrue(expr != null,
+                "'alias' command requires 'eval' command to specify an existing concordion variable");
+
+        evaluator.setVariable(commandCall.getExpression(), evaluator.evaluate(expr));
         announceSetCompleted(commandCall.getElement(), commandCall.getExpression());
     }
 }
