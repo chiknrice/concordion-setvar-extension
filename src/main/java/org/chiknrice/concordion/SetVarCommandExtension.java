@@ -25,7 +25,7 @@ import org.concordion.api.extension.ConcordionExtension;
 public class SetVarCommandExtension implements ConcordionExtension {
 
     private static final String CSS_SOURCE_PATH = "/setvar.css";
-    private static final Resource CSS_TARGET_RESOURCE = new Resource("/setvar.css");
+    private static final Resource CSS_TARGET_RESOURCE = new Resource("/stylesheets/setvar.css");
     public static final String NAMESPACE = "http://www.chiknrice.org/concordion";
 
     @Override

@@ -10,9 +10,9 @@ import org.concordion.api.extension.ConcordionExtension;
 public class ResourceExtension implements ConcordionExtension {
 
     private static final String CSS_SOURCE_PATH = "/spec.css";
-    private static final Resource CSS_TARGET_RESOURCE = new Resource("/spec.css");
+    private static final Resource CSS_TARGET_RESOURCE = new Resource("/stylesheets/spec.css");
     private static final String JS_SOURCE_PATH = "/spec.js";
-    private static final Resource JS_TARGET_RESOURCE = new Resource("/spec.js");
+    private static final Resource JS_TARGET_RESOURCE = new Resource("/javascripts/spec.js");
 
     @Override
     public void addTo(ConcordionExtender concordionExtender) {
