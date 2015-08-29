@@ -20,6 +20,8 @@ import org.concordion.api.extension.ConcordionExtender;
 import org.concordion.api.extension.ConcordionExtension;
 
 /**
+ * Configures all features of the setvar extension.
+ *
  * @author <a href="mailto:chiknrice@gmail.com">Ian Bondoc</a>
  */
 public class SetVarCommandExtension implements ConcordionExtension {

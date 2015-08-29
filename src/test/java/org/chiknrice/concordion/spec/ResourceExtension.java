@@ -1,4 +1,4 @@
-package org.chiknrice.concordion;
+package org.chiknrice.concordion.spec;
 
 import org.concordion.api.Resource;
 import org.concordion.api.extension.ConcordionExtender;

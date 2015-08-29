@@ -16,12 +16,13 @@
 package org.chiknrice.concordion;
 
 import org.concordion.api.CommandCall;
-import org.concordion.api.Element;
 import org.concordion.api.Evaluator;
 import org.concordion.api.ResultRecorder;
 import org.concordion.internal.util.Check;
 
 /**
+ * Sets the command expression to the value of the expression specified in the body of the span element.
+ *
  * @author <a href="mailto:chiknrice@gmail.com">Ian Bondoc</a>
  */
 public class AliasVarCommand extends AbstractSetCommand {
@@ -31,11 +32,10 @@ public class AliasVarCommand extends AbstractSetCommand {
         Check.isFalse(commandCall.hasChildCommands(), "Nesting commands inside a 'alias' is not supported");
         Check.isTrue(commandCall.getElement().getLocalName().equals("span"),
                 "'alias' command can only be used on <span> element");
-        Check.isTrue(commandCall.getElement().getText() != null,
-                "'alias' command requires a text that evaluates to a concordion variable is not supported");
-        evaluator.setVariable(commandCall.getExpression(), evaluator.evaluate(commandCall.getElement().getText()));
-        Element parentElement = commandCall.getElement().getParentElement();
-        parentElement.removeChild(commandCall.getElement());
+        String varName = commandCall.getElement().getAttributeValue("var", SetVarCommandExtension.NAMESPACE);
+        Check.isTrue(varName != null,
+                "'alias' command requires 'var' command to specify an existing concordion variable");
+        evaluator.setVariable(commandCall.getExpression(), evaluator.getVariable(varName));
         announceSetCompleted(commandCall.getElement(), commandCall.getExpression());
     }
 }

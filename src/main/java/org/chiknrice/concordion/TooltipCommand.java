@@ -19,14 +19,21 @@ import org.concordion.api.AbstractCommand;
 import org.concordion.api.CommandCall;
 import org.concordion.api.Evaluator;
 import org.concordion.api.ResultRecorder;
+import org.concordion.internal.util.Check;
 
 /**
+ * A convenience command which behaves much like the echo command except that it renders the expression as a tooltip of
+ * the span element
+ *
  * @author <a href="mailto:chiknrice@gmail.com">Ian Bondoc</a>
  */
 public class TooltipCommand extends AbstractCommand {
 
     @Override
     public void verify(CommandCall commandCall, Evaluator evaluator, ResultRecorder resultRecorder) {
+        Check.isFalse(commandCall.hasChildCommands(), "Nesting commands inside a 'tooltip' is not supported");
+        Check.isTrue(commandCall.getElement().getLocalName().equals("span"),
+                "'tooltip' command can only be used on <span> element");
         Object result = evaluator.evaluate(commandCall.getExpression());
         commandCall.getElement().addAttribute("title", result.toString());
         commandCall.getElement().addStyleClass("cr-tooltip");

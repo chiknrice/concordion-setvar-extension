@@ -21,6 +21,8 @@ import org.concordion.api.listener.SetListener;
 import org.concordion.internal.util.Announcer;
 
 /**
+ * Defines the common methods for all set command.
+ *
  * @author <a href="mailto:chiknrice@gmail.com">Ian Bondoc</a>
  */
 public abstract class AbstractSetCommand extends AbstractCommand {

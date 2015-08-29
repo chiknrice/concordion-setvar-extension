@@ -19,14 +19,20 @@ import org.concordion.api.CommandCall;
 import org.concordion.api.Element;
 import org.concordion.api.Evaluator;
 import org.concordion.api.ResultRecorder;
+import org.concordion.internal.util.Check;
 
 /**
+ * Sets the command expression to the concatenated contents of every span element within the parent span element.
+ *
  * @author <a href="mailto:chiknrice@gmail.com">Ian Bondoc</a>
  */
 public class ConcatCommand extends AbstractSetCommand {
 
     @Override
     public void setUp(CommandCall commandCall, Evaluator evaluator, ResultRecorder resultRecorder) {
+        Check.isFalse(commandCall.hasChildCommands(), "Nesting commands inside a 'concat' is not supported");
+        Check.isTrue(commandCall.getElement().getLocalName().equals("span"),
+                "'concat' command can only be used on <span> element");
         Element[] children = commandCall.getElement().getChildElements("span");
         StringBuilder sb = new StringBuilder();
         for (Element span : children) {

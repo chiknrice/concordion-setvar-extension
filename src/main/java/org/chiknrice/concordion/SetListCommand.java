@@ -20,33 +20,34 @@ import org.concordion.api.CommandCall;
 import org.concordion.api.Element;
 import org.concordion.api.Evaluator;
 import org.concordion.api.ResultRecorder;
+import org.concordion.internal.util.Check;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Sets the command expression to the list created from all li sub elements of the instrumented ul element.
+ *
  * @author <a href="mailto:chiknrice@gmail.com">Ian Bondoc</a>
  */
 public class SetListCommand extends AbstractSetCommand {
 
     @Override
     public void setUp(CommandCall commandCall, Evaluator evaluator, ResultRecorder resultRecorder) {
-        if (commandCall.getElement().isNamed("ul")) {
+        Check.isFalse(commandCall.hasChildCommands(), "Nesting commands inside a 'setList' is not supported");
+        Check.isTrue(commandCall.getElement().getLocalName().equals("ul"),
+                "'setList' command can only be used on <ul> element");
+        Element ul = commandCall.getElement();
 
-            Element ul = commandCall.getElement();
+        List<String> list = new ArrayList<>();
 
-            List<String> list = new ArrayList<>();
-
-            Element[] liArray = ul.getChildElements("li");
-            for (Element li : liArray) {
-                tryToExpand(li, evaluator);
-                list.add(li.getText());
-            }
-
-            evaluator.setVariable(commandCall.getExpression(), list);
-        } else {
-            throw new RuntimeException("setList can only be used on a table");
+        Element[] liArray = ul.getChildElements("li");
+        for (Element li : liArray) {
+            tryToExpand(li, evaluator);
+            list.add(li.getText());
         }
+
+        evaluator.setVariable(commandCall.getExpression(), list);
         announceSetCompleted(commandCall.getElement(), commandCall.getExpression());
     }
 
