@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:c="http://www.concordion.org/2007/concordion" xmlns:i="http://www.chiknrice.org/concordion">
 <head>
     <meta charset="UTF-8"/>
     <title>Tooltip Command</title>
@@ -8,7 +8,23 @@
 
 <h1>Tooltip Command</h1>
 
-TODO
+<p>
+    <code>tooltip</code> command sets the result of the evaluation of expression specified.
+</p>
+
+<div class="example">
+    <p>
+        <b>Given</b> a content "<span c:set="#tooltipContent">The tooltip content</span>" wrapped with <code>span</code>
+        which is instrumented with <code>set="#tooltipContent"</code>
+    </p>
+
+    <p>
+        <b>Then</b> the words "<span i:tooltip="#tooltipContent">i have a tooltip</span>" wrapped with a
+        <code>span</code> instrumented with <code>tooltip="#tooltipContent"</code> should display "The tooltip content"
+        when the mouse pointer hovers.
+    </p>
+
+</div>
 
 </body>
 </html>

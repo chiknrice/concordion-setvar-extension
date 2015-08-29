@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:c="http://www.concordion.org/2007/concordion" xmlns:i="http://www.chiknrice.org/concordion">
 <head>
     <meta charset="UTF-8"/>
     <title>Concat Command</title>
@@ -8,7 +8,22 @@
 
 <h1>Concat Command</h1>
 
-TODO
+<p>
+    <code>concat</code> command concatenates contents of every <code>span</code> child element and set it to the
+    expression specified.
+</p>
+
+<div class="example">
+    <p>
+        <b>Given</b> a <code>span</code> instrumented with <code>concat="#concatenated"</code> and children
+        <code>span</code> elements with contents <span i:concat="#concatenated"><span>a</span> <span>b</span> and
+        <span>c</span></span>
+    </p>
+
+    <p>
+        <b>Then</b> <code>#concatenated</code> should evaluate to <span c:assertEquals="#concatenated">abc</span>
+    </p>
+</div>
 
 </body>
 </html>
