@@ -2,17 +2,28 @@
 
 set -o errexit -o nounset
 
+rm -rf gh-pages
+
 mkdir gh-pages
 
 cd gh-pages
 
-git init
-git config user.name "Travis CI"
-git config user.email "chiknrice@gmail.com"
+git clone --depth=50 --branch=gh-pages https://$GH_TOKEN@github.com/chiknrice/concordion-setvar-extension.git
 
-cp -R ../build/reports/spec/* .
+VER="${TRAVIS_TAG:-latest}"
+
+if [ $VER == "latest" ];
+then
+    rm -rf concordion-setvar-extension/$VER
+fi
+
+mkdir concordion-setvar-extension/$VER
+
+cp -R ../build/reports/spec/* concordion-setvar-extension/$VER
+
+cd concordion-setvar-extension
 
 git add .
 git commit -m "Update concordion spec result"
 
-git push --force --quiet  "https://$GH_TOKEN@github.com/chiknrice/concordion-setvar-extension.git" master:gh-pages > /dev/null 2>&1
+git push
