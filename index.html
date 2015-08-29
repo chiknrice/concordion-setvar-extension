@@ -65,20 +65,16 @@
         </p>
 
         <p>
-            Another problem that this extension addresses is when a variable is intended to be set to a setting a
-            variable to a dynamic value. Sometime the specification requires comparing a value to another value which
-            can only be determined evaluating an expression.
+            Another limitation that this extension tries to solve is the <code>concordion:set</code> command being
+            limited to static values. It would be useful to have a <code>concordion:echo</code> command evaluate
+            expressions and to be able to set this to variables using the <code>concordion:set</code>.
         </p>
 
         <p>
-            The set var extension command set solves these problems with commands which build test data within the
-            specification html. The set var also introduces the concept of <code>eval</code> which evaluates the
-            specified expressions prior to building the complex data structures needed.
-        </p>
-
-        <p>
-            The latest concordion specifications for concordion-setvar-extension can be found <a
-                href="latest/org/chiknrice/concordion/spec/Spec.html">here</a>
+            The set var extension solves these problems with <a href="latest/org/chiknrice/concordion/spec/Spec.html">commands</a>
+            which build test data within the specification html without the need for calling fixture methods. This
+            extension also introduces the concept of <code>eval</code> which evaluates expressions prior to building the
+            complex data structures needed.
         </p>
 
     </section>
