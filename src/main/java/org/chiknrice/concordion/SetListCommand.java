@@ -25,6 +25,9 @@ import org.concordion.internal.util.Check;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.String.format;
+import static org.chiknrice.concordion.Const.SET_LIST;
+
 /**
  * Sets the command expression to the list created from all li sub elements of the instrumented ul element.
  *
@@ -34,9 +37,9 @@ public class SetListCommand extends AbstractSetCommand {
 
     @Override
     public void setUp(CommandCall commandCall, Evaluator evaluator, ResultRecorder resultRecorder) {
-        Check.isFalse(commandCall.hasChildCommands(), "Nesting commands inside a 'setList' is not supported");
+        Check.isFalse(commandCall.hasChildCommands(), format("Nesting commands inside a '%s' is not supported", SET_LIST));
         Check.isTrue(commandCall.getElement().getLocalName().equals("ul"),
-                "'setList' command can only be used on <ul> element");
+                format("'%s' command can only be used on <ul> element", SET_LIST));
         Element ul = commandCall.getElement();
 
         List<String> list = new ArrayList<>();
@@ -48,7 +51,6 @@ public class SetListCommand extends AbstractSetCommand {
         }
 
         evaluator.setVariable(commandCall.getExpression(), list);
-        announceSetCompleted(commandCall.getElement(), commandCall.getExpression());
     }
 
 }

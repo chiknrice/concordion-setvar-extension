@@ -21,6 +21,9 @@ import org.concordion.api.Evaluator;
 import org.concordion.api.ResultRecorder;
 import org.concordion.internal.util.Check;
 
+import static java.lang.String.format;
+import static org.chiknrice.concordion.Const.CONCAT;
+
 /**
  * Sets the command expression to the concatenated contents of every span element within the parent span element.
  *
@@ -30,9 +33,9 @@ public class ConcatCommand extends AbstractSetCommand {
 
     @Override
     public void setUp(CommandCall commandCall, Evaluator evaluator, ResultRecorder resultRecorder) {
-        Check.isFalse(commandCall.hasChildCommands(), "Nesting commands inside a 'concat' is not supported");
+        Check.isFalse(commandCall.hasChildCommands(), format("Nesting commands inside a '%s' is not supported", CONCAT));
         Check.isTrue(commandCall.getElement().getLocalName().equals("span"),
-                "'concat' command can only be used on <span> element");
+                format("'%s' command can only be used on <span> element", CONCAT));
         Element[] children = commandCall.getElement().getChildElements("span");
         StringBuilder sb = new StringBuilder();
         for (Element span : children) {
@@ -40,7 +43,6 @@ public class ConcatCommand extends AbstractSetCommand {
             sb.append(span.getText());
         }
         evaluator.setVariable(commandCall.getExpression(), sb.toString());
-        announceSetCompleted(commandCall.getElement(), commandCall.getExpression());
     }
 
 }

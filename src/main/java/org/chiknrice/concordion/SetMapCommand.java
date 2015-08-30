@@ -27,6 +27,9 @@ import org.concordion.internal.util.Check;
 import java.util.HashMap;
 import java.util.Map;
 
+import static java.lang.String.format;
+import static org.chiknrice.concordion.Const.*;
+
 /**
  * Sets the command expression to the map created from all rows in the table element.  Keys and values are taken from
  * columns which are defined by columnAs attribute.  Possible values of columnAs attribute are 'key' or 'value'.
@@ -37,9 +40,9 @@ public class SetMapCommand extends AbstractSetCommand {
 
     @Override
     public void setUp(CommandCall commandCall, Evaluator evaluator, ResultRecorder resultRecorder) {
-        Check.isFalse(commandCall.hasChildCommands(), "Nesting commands inside a 'setMap' is not supported");
+        Check.isFalse(commandCall.hasChildCommands(), format("Nesting commands inside a '%s' is not supported", SET_MAP));
         Check.isTrue(commandCall.getElement().getLocalName().equals("table"),
-                "'setMap' command can only be used on <table> element");
+                format("'%s' command can only be used on <table> element", SET_MAP));
 
         Table table = new Table(commandCall.getElement());
         Row header = table.getLastHeaderRow();
@@ -47,23 +50,23 @@ public class SetMapCommand extends AbstractSetCommand {
         int keyColumnIndex = -1;
         int valueColumnIndex = -1;
         for (Element thCell : header.getCells()) {
-            String columnAs = thCell.getAttributeValue("columnAs", SetVarCommandExtension.NAMESPACE);
+            String columnAs = thCell.getAttributeValue(COLUMN_AS, NAMESPACE);
             if (columnAs != null) {
                 switch (columnAs) {
-                    case "key":
+                    case KEY:
                         keyColumnIndex = header.getIndexOfCell(thCell);
                         break;
-                    case "value":
+                    case VALUE:
                         valueColumnIndex = header.getIndexOfCell(thCell);
                         break;
                     default:
-                        throw new RuntimeException("Unsupported columnAs attribute value " + columnAs);
+                        throw new RuntimeException(format("Unsupported %s attribute value %s", COLUMN_AS, columnAs));
                 }
             }
         }
         if (keyColumnIndex < 0 || valueColumnIndex < 0) {
             throw new RuntimeException(
-                    "Invalid configuration, 'setMap' should define which columns represent the key and value using 'columnAs' attribute");
+                    format("Invalid configuration, '%s' should define which columns represent the key and value using '%s' attribute", SET_MAP, COLUMN_AS));
         }
 
         Map<String, String> map = new HashMap<>();
@@ -72,14 +75,13 @@ public class SetMapCommand extends AbstractSetCommand {
             Element[] cells = detailRow.getCells();
             if (cells.length != columnCount) {
                 throw new RuntimeException(
-                        "The <table> 'setMap' command only supports rows with an equal number of columns.");
+                        format("The <table> '%s' command only supports rows with an equal number of columns", SET_MAP));
             }
             tryToExpand(cells[keyColumnIndex], evaluator);
             tryToExpand(cells[valueColumnIndex], evaluator);
             map.put(cells[keyColumnIndex].getText(), cells[valueColumnIndex].getText());
         }
         evaluator.setVariable(commandCall.getExpression(), map);
-        announceSetCompleted(commandCall.getElement(), commandCall.getExpression());
     }
 
 }

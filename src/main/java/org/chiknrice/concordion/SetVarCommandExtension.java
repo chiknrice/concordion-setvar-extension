@@ -19,6 +19,8 @@ import org.concordion.api.Resource;
 import org.concordion.api.extension.ConcordionExtender;
 import org.concordion.api.extension.ConcordionExtension;
 
+import static org.chiknrice.concordion.Const.*;
+
 /**
  * Configures all features of the setvar extension.
  *
@@ -28,15 +30,14 @@ public class SetVarCommandExtension implements ConcordionExtension {
 
     private static final String CSS_SOURCE_PATH = "/setvar.css";
     private static final Resource CSS_TARGET_RESOURCE = new Resource("/stylesheets/setvar.css");
-    public static final String NAMESPACE = "http://www.chiknrice.org/concordion";
 
     @Override
     public void addTo(ConcordionExtender concordionExtender) {
-        concordionExtender.withCommand(NAMESPACE, "setMap", new SetMapCommand());
-        concordionExtender.withCommand(NAMESPACE, "setList", new SetListCommand());
-        concordionExtender.withCommand(NAMESPACE, "set", new SetEvalCommand());
-        concordionExtender.withCommand(NAMESPACE, "concat", new ConcatCommand());
-        concordionExtender.withCommand(NAMESPACE, "tooltip", new TooltipCommand());
+        concordionExtender.withCommand(NAMESPACE, SET_MAP, new SetMapCommand());
+        concordionExtender.withCommand(NAMESPACE, SET_LIST, new SetListCommand());
+        concordionExtender.withCommand(NAMESPACE, SET, new SetEvalCommand());
+        concordionExtender.withCommand(NAMESPACE, CONCAT, new ConcatCommand());
+        concordionExtender.withCommand(NAMESPACE, TOOLTIP, new TooltipCommand());
         concordionExtender.withLinkedCSS(CSS_SOURCE_PATH, CSS_TARGET_RESOURCE);
     }
 }

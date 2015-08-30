@@ -16,9 +16,9 @@
 package org.chiknrice.concordion;
 
 import org.concordion.api.*;
-import org.concordion.api.listener.SetEvent;
-import org.concordion.api.listener.SetListener;
-import org.concordion.internal.util.Announcer;
+
+import static org.chiknrice.concordion.Const.EVAL;
+import static org.chiknrice.concordion.Const.NAMESPACE;
 
 /**
  * Defines the common methods for all set command.
@@ -27,25 +27,11 @@ import org.concordion.internal.util.Announcer;
  */
 public abstract class AbstractSetCommand extends AbstractCommand {
 
-    private Announcer<SetListener> listeners = Announcer.to(SetListener.class);
-
-    public void addSetListener(SetListener listener) {
-        listeners.addListener(listener);
-    }
-
-    public void removeSetListener(SetListener listener) {
-        listeners.removeListener(listener);
-    }
-
-    protected void announceSetCompleted(Element element, String expression) {
-        listeners.announce().setCompleted(new SetEvent(element, expression));
-    }
-
     @Override
     public abstract void setUp(CommandCall commandCall, Evaluator evaluator, ResultRecorder resultRecorder);
 
     protected void tryToExpand(Element e, Evaluator evaluator) {
-        String expression = e.getAttributeValue("eval", SetVarCommandExtension.NAMESPACE);
+        String expression = e.getAttributeValue(EVAL, NAMESPACE);
         if (expression != null) {
             Object result = evaluator.evaluate(expression);
             if (result != null) {

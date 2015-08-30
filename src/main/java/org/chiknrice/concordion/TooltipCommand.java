@@ -21,6 +21,9 @@ import org.concordion.api.Evaluator;
 import org.concordion.api.ResultRecorder;
 import org.concordion.internal.util.Check;
 
+import static java.lang.String.format;
+import static org.chiknrice.concordion.Const.TOOLTIP;
+
 /**
  * A convenience command which behaves much like the echo command except that it renders the expression as a tooltip of
  * the span element
@@ -31,9 +34,9 @@ public class TooltipCommand extends AbstractCommand {
 
     @Override
     public void verify(CommandCall commandCall, Evaluator evaluator, ResultRecorder resultRecorder) {
-        Check.isFalse(commandCall.hasChildCommands(), "Nesting commands inside a 'tooltip' is not supported");
+        Check.isFalse(commandCall.hasChildCommands(), format("Nesting commands inside a '%s' is not supported", TOOLTIP));
         Check.isTrue(commandCall.getElement().getLocalName().equals("span"),
-                "'tooltip' command can only be used on <span> element");
+                format("'%s' command can only be used on <span> element", TOOLTIP));
         Object result = evaluator.evaluate(commandCall.getExpression());
         commandCall.getElement().addAttribute("title", result.toString());
         commandCall.getElement().addStyleClass("cr-tooltip");
