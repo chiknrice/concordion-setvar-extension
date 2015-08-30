@@ -1,7 +1,7 @@
 package org.chiknrice.concordion.spec;
 
 /**
- * @author <a href="mailto:adrian.bondoc@verifone.com">Ian Bondoc</a>
+ * @author <a href="mailto:chiknrice@gmail.com">Ian Bondoc</a>
  */
 public class SpecFixture extends SetVarBaseFixture {
 }
