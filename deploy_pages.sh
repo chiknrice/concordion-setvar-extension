@@ -10,23 +10,29 @@ cd gh-pages
 
 git clone --depth=50 --branch=gh-pages https://$GH_TOKEN@github.com/chiknrice/concordion-setvar-extension.git
 
-VER="${TRAVIS_TAG:-latest}"
-
-if [ $VER == "latest" ];
+if [[ -n "${TRAVIS_TAG-}" ]]
 then
-    rm -rf concordion-setvar-extension/$VER
+    echo "Adding concordion specs for $TRAVIS_TAG"
+    mkdir concordion-setvar-extension/$TRAVIS_TAG
+    cp -R ../build/reports/spec/* concordion-setvar-extension/$TRAVIS_TAG
 fi
 
-mkdir concordion-setvar-extension/$VER
-
-cp -R ../build/reports/spec/* concordion-setvar-extension/$VER
+rm -rf concordion-setvar-extension/latest
+mkdir concordion-setvar-extension/latest
+cp -R ../build/reports/spec/* concordion-setvar-extension/latest
 
 cd concordion-setvar-extension
 
-git config user.email "chiknrice@gmail.com"
-git config user.name "Travis CI"
+# currently always evaluates to true due to the timestamps in spec footers
+if [[ -n $(git status -s) ]]
+then
+    echo "Updating latest concordion specs"
 
-git add .
-git commit -m "Update concordion spec result"
+    git config user.email "chiknrice@gmail.com"
+    git config user.name "Travis CI"
 
-git push
+    git add .
+    git commit -m "Update concordion spec result"
+
+    git push
+fi
