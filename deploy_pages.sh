@@ -30,6 +30,7 @@ then
 
     git config user.email "chiknrice@gmail.com"
     git config user.name "Travis CI"
+    git config push.default matching
 
     git add .
     git commit -m "Update concordion spec result"
