@@ -32,7 +32,7 @@ then
     git config user.name "Travis CI"
     git config push.default matching
 
-    git add .
+    git add --all .
     git commit -m "Update concordion spec result"
 
     git push
