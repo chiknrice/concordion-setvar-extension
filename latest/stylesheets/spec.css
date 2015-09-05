@@ -1,5 +1,5 @@
 div.source {
-    display: block;
+    display: none;
     position: absolute;
     z-index: 98;
     margin: 0px;
