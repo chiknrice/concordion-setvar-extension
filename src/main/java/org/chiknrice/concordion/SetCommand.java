@@ -25,18 +25,18 @@ import static java.lang.String.format;
 import static org.chiknrice.concordion.Const.SET;
 
 /**
- * Sets the command expression to the evaluated value of the expression specified in the eval command.
+ * Sets the command expression to the evaluated value of the expression specified in the eval command or if the eval
+ * command does not exist, set the value to the text content of the element.  After evaluation, an optional templating
+ * is available via the template and placeholder commands.
  *
  * @author <a href="mailto:chiknrice@gmail.com">Ian Bondoc</a>
  */
-public class SetEvalCommand extends AbstractSetCommand {
+public class SetCommand extends AbstractSetCommand {
 
     @Override
     public void setUp(CommandCall commandCall, Evaluator evaluator, ResultRecorder resultRecorder) {
         Check.isFalse(commandCall.hasChildCommands(), format("Nesting commands inside a '%s' is not supported", SET));
         Element element = commandCall.getElement();
-        Check.isTrue(element.getLocalName().equals("span"),
-                format("'%s' command can only be used on <span> element", SET));
         Object value = eval(element, evaluator);
         if (value == null) {
             value = element.getText();
