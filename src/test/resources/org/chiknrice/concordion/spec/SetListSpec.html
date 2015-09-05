@@ -13,10 +13,15 @@
     which is constructed with the <code>li</code> values within a <code>ul</code> tag.
 </p>
 
+<p>
+    Prior to setting the <code>li</code> tags, contents can be evaluated from an expression specified by
+    <code>eval</code> command. The result of the evaluation is concatenated to the contents of the <code>li</code> tag.
+</p>
+
 <div class="example">
 
     <p>
-        <b>Given</b> the following <code>ul</code> <span data-source="ulSource">instrumented</span> with
+        <b>Given</b> the following <code>ul</code> <span data-source="ul1Source">instrumented</span> with
         <code>i:setList="#theList"</code>
     </p>
     <ul i:setList="#theList">
@@ -41,11 +46,53 @@
 
 </div>
 
-<div id="ulSource" class="source">
+<div id="ul1Source" class="source">
 <pre>
 &lt;ul <span class="instrument">i:setList=&quot;#theList&quot;</span>&gt;
     &lt;li&gt;A&lt;/li&gt;
     &lt;li&gt;B&lt;/li&gt;
+    &lt;li&gt;C&lt;/li&gt;
+&lt;/ul&gt;
+</pre>
+</div>
+
+<div class="example">
+
+    <p>
+        <b>Given</b> a String "<b><span c:set="#aValue">xxx</span></b>" set to <code>#aValue</code>
+    </p>
+
+    <p>
+        <b>And</b> the following <code>ul</code> <span data-source="ul2Source">instrumented</span> with
+        <code>i:setList="#theList"</code>
+    </p>
+    <ul i:setList="#theList">
+        <li>A</li>
+        <li i:eval="#aValue"></li>
+        <li>C</li>
+    </ul>
+    <p>
+        <b>And</b> <code>#index</code> is <span c:set="#index">1</span>
+    </p>
+
+    <p>
+        <b>Then</b> <code>#theList.size()</code> should evaluate to <span c:assertEquals="#theList.size()">3</span>
+    </p>
+
+    <p>
+        // [NB] lists are 0 indexed
+        <br/>
+        <b>And</b> <code>#theList.get(#index)</code> should evaluate to <span
+            c:assertEquals="#theList.get(#index)">xxx</span>
+    </p>
+
+</div>
+
+<div id="ul2Source" class="source">
+<pre>
+&lt;ul <span class="instrument">i:setList=&quot;#theList&quot;</span>&gt;
+    &lt;li&gt;A&lt;/li&gt;
+    &lt;li <span class="instrument">i:eval=&quot;#aValue&quot;</span>&gt;&lt;/li&gt;
     &lt;li&gt;C&lt;/li&gt;
 &lt;/ul&gt;
 </pre>

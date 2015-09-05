@@ -2,15 +2,30 @@
 <html lang="en" xmlns:c="http://www.concordion.org/2007/concordion" xmlns:i="http://www.chiknrice.org/concordion">
 <head>
     <meta charset="UTF-8"/>
-    <title>Set Eval Command</title>
+    <title>Set Command</title>
 </head>
 <body>
 
-<h1>Set Eval Command</h1>
+<h1>Set Command</h1>
 
 <p>
-    <code>set</code> command allows a variable to be set to values evaluated from the expression specified by
-    <code>eval</code> command.
+    <code>set</code> command aims to improve the Concordion's version by allowing the variable to be set to dynamic
+    values.
+</p>
+
+<p>
+    The following rules apply:
+<ul>
+    <li>if the <code>eval</code> command is present, then the variable would be set to the result the <code>eval</code>
+        expression evaluation and the content of the <code>span</code> element would be ignored
+    </li>
+    <li>if there is no eval tag present the then variable is set to the contents of the <code>span</code> element
+        (similar to Concordion's <code>set</code>)
+    </li>
+    <li>if the <code>template</code> and <code>placeholder</code> commands are present then the <code>toString()</code>
+        of either values would replace the placeholder within the template
+    </li>
+</ul>
 </p>
 
 <div class="example">
@@ -20,15 +35,121 @@
     </p>
 
     <p>
-        <b>And</b> an empty <code>span</code> instrumented with <code>set="#theLength"</code> and
-        <code>eval="#aString.length()"</code>
-        <span i:set="#theLength" i:eval="#aString.length()"></span>
+        <b>And</b> an empty <code>span</code> <span data-source="example1Source">instrumented</span> with <code>set="#substring"</code>
+        and
+        <code>eval="#aString.subString(0, 2)"</code>
+        <span i:set="#substring" i:eval="#aString.substring(0, 2)"></span>
     </p>
 
     <p>
-        <b>Then</b> <code>#theLength</code> should evaluate to <span c:assertEquals="#theLength">4</span>
+        <b>Then</b> <code>#substring</code> should evaluate to <span c:assertEquals="#substring">te</span>
     </p>
 
+</div>
+
+<div id="example1Source" class="source">
+<pre>
+&lt;span <span class="instrument">i:set=&quot;#substring&quot;</span> <span class="instrument">i:eval=&quot;#aString.substring(0, 2)&quot;</span>&gt;&lt;/span&gt;
+</pre>
+</div>
+
+<div class="example">
+
+    <p>
+        <b>Given</b> a String "<b><span c:set="#aString">test</span></b>" set to <code>#aString</code>
+    </p>
+
+    <p>
+        <b>And</b> a <code>span</code> <span data-source="example2Source">instrumented</span> with <code>set="#substring"</code>
+        and <code>eval="#aString.subString(0, 2)"</code> with content "<span i:set="#substring"
+                                                                             i:eval="#aString.substring(0, 2)">xxx</span>"
+    </p>
+
+    <p>
+        <b>Then</b> <code>#substring</code> should still evaluate to <span c:assertEquals="#substring">te</span>
+    </p>
+
+</div>
+
+<div id="example2Source" class="source">
+<pre>
+&lt;span <span class="instrument">i:set=&quot;#substring&quot; i:eval=&quot;#aString.substring(0, 2)&quot;</span>&gt;xxx&lt;/span&gt;
+</pre>
+</div>
+
+<div class="example">
+
+    <p>
+        <b>Given</b> a <code>span</code> <span data-source="example3Source">instrumented</span> with <code>set="#substring"</code>
+        with content "<span i:set="#substring">xxx</span>"
+    </p>
+
+    <p>
+        <b>Then</b> <code>#substring</code> should still evaluate to <span c:assertEquals="#substring">xxx</span>
+    </p>
+
+</div>
+
+<div id="example3Source" class="source">
+<pre>
+&lt;span <span class="instrument">i:set=&quot;#substring&quot;</span>&gt;xxx&lt;/span&gt;
+</pre>
+</div>
+
+<div class="example">
+
+    <p>
+        <b>Given</b> a String "<b><span c:set="#aString">test</span></b>" set to <code>#aString</code>
+    </p>
+
+    <p>
+        <b>And</b> a String "<b><span c:set="#myTemplate">A sample template for MY_PLACEHOLDER purpose</span></b>" set
+        to <code>#myTemplate</code>
+    </p>
+
+    <p>
+        <b>And</b> an empty <code>span</code> <span data-source="example4Source">instrumented</span> with <code>set="#substring"</code>,
+        <code>eval="#aString.subString(0, 2)"</code>, <code>template="#myTemplate"</code>, and <code>placeholder="MY_PLACEHOLDER"</code>
+        <span i:set="#substring" i:eval="#aString.substring(0, 2)" i:template="#myTemplate"
+              i:placeholder="MY_PLACEHOLDER"></span>
+    </p>
+
+    <p>
+        <b>Then</b> <code>#substring</code> should evaluate to <span c:assertEquals="#substring">A sample template for te purpose</span>
+    </p>
+
+</div>
+
+<div id="example4Source" class="source">
+<pre>
+&lt;span <span class="instrument">i:set=&quot;#substring&quot; i:eval=&quot;#aString.substring(0, 2)&quot; i:template=&quot;#myTemplate&quot; i:placeholder=&quot;MY_PLACEHOLDER&quot;</span>&gt;&lt;/span&gt;
+</pre>
+</div>
+
+<div class="example">
+
+    <p>
+        <b>Given</b> a String "<b><span c:set="#myTemplate">A sample template for MY_PLACEHOLDER purpose</span></b>" set
+        to <code>#myTemplate</code>
+    </p>
+
+    <p>
+        <b>And</b> a <code>span</code> <span data-source="example5Source">instrumented</span> with <code>set="#substring"</code>,
+        <code>eval="#aString.subString(0, 2)"</code>, <code>template="#myTemplate"</code>, and <code>placeholder="MY_PLACEHOLDER"</code>
+        with content
+        <span i:set="#substring" i:template="#myTemplate" i:placeholder="MY_PLACEHOLDER">xxx</span>
+    </p>
+
+    <p>
+        <b>Then</b> <code>#substring</code> should evaluate to <span c:assertEquals="#substring">A sample template for xxx purpose</span>
+    </p>
+
+</div>
+
+<div id="example5Source" class="source">
+<pre>
+&lt;span <span class="instrument">i:set=&quot;#substring&quot; i:template=&quot;#myTemplate&quot; i:placeholder=&quot;MY_PLACEHOLDER&quot;</span>&gt;xxx&lt;/span&gt;
+</pre>
 </div>
 
 </body>

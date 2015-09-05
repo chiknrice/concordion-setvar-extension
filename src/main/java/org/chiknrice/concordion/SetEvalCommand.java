@@ -16,12 +16,13 @@
 package org.chiknrice.concordion;
 
 import org.concordion.api.CommandCall;
+import org.concordion.api.Element;
 import org.concordion.api.Evaluator;
 import org.concordion.api.ResultRecorder;
 import org.concordion.internal.util.Check;
 
 import static java.lang.String.format;
-import static org.chiknrice.concordion.Const.*;
+import static org.chiknrice.concordion.Const.SET;
 
 /**
  * Sets the command expression to the evaluated value of the expression specified in the eval command.
@@ -33,12 +34,14 @@ public class SetEvalCommand extends AbstractSetCommand {
     @Override
     public void setUp(CommandCall commandCall, Evaluator evaluator, ResultRecorder resultRecorder) {
         Check.isFalse(commandCall.hasChildCommands(), format("Nesting commands inside a '%s' is not supported", SET));
-        Check.isTrue(commandCall.getElement().getLocalName().equals("span"),
+        Element element = commandCall.getElement();
+        Check.isTrue(element.getLocalName().equals("span"),
                 format("'%s' command can only be used on <span> element", SET));
-        String expr = commandCall.getElement().getAttributeValue(EVAL, NAMESPACE);
-        Check.isTrue(expr != null,
-                format("'%s' command requires '%s' command to specify an existing concordion variable", SET, EVAL));
-
-        evaluator.setVariable(commandCall.getExpression(), evaluator.evaluate(expr));
+        Object value = eval(element, evaluator);
+        if (value == null) {
+            value = element.getText();
+        }
+        value = template(element, evaluator, value);
+        evaluator.setVariable(commandCall.getExpression(), value);
     }
 }
