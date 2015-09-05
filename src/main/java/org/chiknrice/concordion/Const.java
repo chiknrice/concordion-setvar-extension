@@ -15,7 +15,5 @@ public class Const {
     public static final String CONCAT = "concat";
     public static final String TOOLTIP = "tooltip";
     public static final String EVAL = "eval";
-    public static final String TEMPLATE = "template";
-    public static final String PLACEHOLDER = "placeholder";
 
 }

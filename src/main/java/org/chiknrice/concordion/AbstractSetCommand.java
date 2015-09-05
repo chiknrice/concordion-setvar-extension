@@ -16,10 +16,9 @@
 package org.chiknrice.concordion;
 
 import org.concordion.api.*;
-import org.concordion.internal.util.Check;
 
-import static java.lang.String.format;
-import static org.chiknrice.concordion.Const.*;
+import static org.chiknrice.concordion.Const.EVAL;
+import static org.chiknrice.concordion.Const.NAMESPACE;
 
 /**
  * Defines the common methods for all set command.
@@ -31,42 +30,19 @@ public abstract class AbstractSetCommand extends AbstractCommand {
     @Override
     public abstract void setUp(CommandCall commandCall, Evaluator evaluator, ResultRecorder resultRecorder);
 
-    protected Object eval(Element e, Evaluator evaluator) {
-        Object result = null;
-        String expression = e.getAttributeValue(EVAL, NAMESPACE);
-        if (expression != null) {
-            result = evaluator.evaluate(expression);
-        }
-        return result;
-    }
-
-    protected Object template(Element e, Evaluator evaluator, Object value) {
-        String template = e.getAttributeValue(TEMPLATE, NAMESPACE);
-        if (template != null) {
-            template = (String) evaluator.evaluate(template);
-            String placeholder = e.getAttributeValue(PLACEHOLDER, NAMESPACE);
-            Check.isTrue(placeholder != null,
-                    format("'%s' command requires '%s' command to specify an existing concordion variable", TEMPLATE,
-                            PLACEHOLDER));
-
-            value = template.replaceAll(placeholder, value.toString());
-        }
-        return value;
-    }
-
     protected void tryToExpand(Element e, Evaluator evaluator) {
         String expression = e.getAttributeValue(EVAL, NAMESPACE);
         if (expression != null) {
-            Object result = eval(e, evaluator);
+            Object result = evaluator.evaluate(expression);
             if (result != null) {
                 e.appendText(result.toString());
+                e.addAttribute("title", expression);
                 e.addStyleClass("cr-eval");
             } else {
                 Element child = new Element("em");
                 child.appendText("null");
                 e.appendChild(child);
             }
-            e.addAttribute("title", expression);
         }
     }
 }
