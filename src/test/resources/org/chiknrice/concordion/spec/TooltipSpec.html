@@ -9,7 +9,8 @@
 <h1>Tooltip Command</h1>
 
 <p>
-    <code>tooltip</code> command sets the result of the evaluation of expression specified.
+    <code>tooltip</code> command sets the evaluation result of the expression specified as the <code>title</code>
+    attribute of the instrumented element.
 </p>
 
 <div class="example">
@@ -22,6 +23,43 @@
         <b>Then</b> the words "<span i:tooltip="#tooltipContent">i have a tooltip</span>" wrapped with a
         <code>span</code> instrumented with <code>tooltip="#tooltipContent"</code> should display "The tooltip content"
         when the mouse pointer hovers.
+    </p>
+
+</div>
+
+<p>
+    <code>tooltip</code> can also be used in tables as below:
+</p>
+
+<div class="example">
+    <p>
+        <b>Given</b> a content "<span c:set="#tooltipContent">the tooltip</span>" wrapped with <code>span</code>
+        which is instrumented with <code>set="#tooltipContent"</code>
+    </p>
+
+    <p>
+        <b>Then</b> the table's <code>th</code> instrumented with <code>&lt;table c:execute=&quot;#right = echo(#left)&quot;&gt;</code>,
+        <code>&lt;th c:set=&quot;#left&quot;&gt;&lt;/th&gt;</code>, and <code>&lt;th tooltip=&quot;#right + ' with ' +
+        #tooltipContent&quot;&gt;&lt;/th&gt;</code> should set a title for all corresponding <code>td</code>
+
+    <table c:execute="#right = echo(#left)">
+        <tr>
+            <th c:set="#left"></th>
+            <th i:tooltip="#right + ' with ' + #tooltipContent"></th>
+        </tr>
+        <tr>
+            <td>A</td>
+            <td>X</td>
+        </tr>
+        <tr>
+            <td>B</td>
+            <td>Y</td>
+        </tr>
+        <tr>
+            <td>C</td>
+            <td>Z</td>
+        </tr>
+    </table>
     </p>
 
 </div>

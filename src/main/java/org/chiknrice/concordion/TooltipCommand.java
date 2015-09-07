@@ -35,8 +35,6 @@ public class TooltipCommand extends AbstractCommand {
     @Override
     public void verify(CommandCall commandCall, Evaluator evaluator, ResultRecorder resultRecorder) {
         Check.isFalse(commandCall.hasChildCommands(), format("Nesting commands inside a '%s' is not supported", TOOLTIP));
-        Check.isTrue(commandCall.getElement().getLocalName().equals("span"),
-                format("'%s' command can only be used on <span> element", TOOLTIP));
         Object result = evaluator.evaluate(commandCall.getExpression());
         commandCall.getElement().addAttribute("title", result.toString());
         commandCall.getElement().addStyleClass("cr-tooltip");
