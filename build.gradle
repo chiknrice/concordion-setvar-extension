@@ -50,9 +50,9 @@ bintray {
     publications = ['Release']
     pkg {
         repo = 'maven'
-        name = '${project.name}'
+        name = "${project.name}"
         licenses = ['GPL-3.0']
-        vcsUrl = 'https://github.com/chiknrice/${project.name}.git'
+        vcsUrl = "https://github.com/chiknrice/${project.name}.git"
     }
 }
 
@@ -97,7 +97,7 @@ publishing {
 }
 
 release {
-    tagTemplate = 'v${version}'
+    tagTemplate = "v${version}"
 }
 
 test {
