@@ -34,10 +34,10 @@ public abstract class AbstractSetCommand extends AbstractCommand {
         String expression = e.getAttributeValue(EVAL, NAMESPACE);
         if (expression != null) {
             Object result = evaluator.evaluate(expression);
+            e.addAttribute("title", expression);
+            e.addStyleClass("cr-eval");
             if (result != null) {
                 e.appendText(result.toString());
-                e.addAttribute("title", expression);
-                e.addStyleClass("cr-eval");
             } else {
                 Element child = new Element("em");
                 child.appendText("null");
