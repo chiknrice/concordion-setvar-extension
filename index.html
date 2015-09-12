@@ -36,24 +36,22 @@
 
             <p>A concordion extension which allows creation of complex data structures in the spec and set it to
                 variables before execute</p>
+            <span><a href="https://travis-ci.org/chiknrice/concordion-setvar-extension"><img
+                    src="https://travis-ci.org/chiknrice/concordion-setvar-extension.svg?branch=master"
+                    alt="Build Status"></a>
+            <a href="https://coveralls.io/github/chiknrice/concordion-setvar-extension?branch=master"><img
+                    src="https://coveralls.io/repos/chiknrice/concordion-setvar-extension/badge.svg?branch=master&amp;service=github"
+                    alt="Coverage Status"></a> <a
+                        href="https://bintray.com/chiknrice/maven/concordion-setvar-extension/_latestVersion"> <img
+                        src="https://api.bintray.com/packages/chiknrice/maven/concordion-setvar-extension/images/download.svg"
+                        alt="Download"> </a></span>
             <hr>
             <span class="credits left">Project maintained by <a href="https://github.com/chiknrice">chiknrice</a></span>
             <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a
                     href="https://twitter.com/michigangraham">mattgraham</a></span>
         </div>
 
-        <h1>
-            <a id="concordion-setvar-extension" class="anchor" href="#concordion-setvar-extension"
-               aria-hidden="true"><span class="octicon octicon-link"></span></a>concordion-setvar-extension</h1>
-
-        <p><a href="https://travis-ci.org/chiknrice/concordion-setvar-extension"><img
-                src="https://travis-ci.org/chiknrice/concordion-setvar-extension.svg?branch=master" alt="Build Status"></a>
-            <a href="https://coveralls.io/github/chiknrice/concordion-setvar-extension?branch=master"><img
-                    src="https://coveralls.io/repos/chiknrice/concordion-setvar-extension/badge.svg?branch=master&amp;service=github"
-                    alt="Coverage Status"></a> <a
-                    href="https://bintray.com/chiknrice/maven/concordion-setvar-extension/_latestVersion"> <img
-                    src="https://api.bintray.com/packages/chiknrice/maven/concordion-setvar-extension/images/download.svg"
-                    alt="Download"> </a></p>
+        <h1>Problem</h1>
 
         <p>
             One limitation of concordion is setting a variable with a complex data structure such as a map without
@@ -65,15 +63,40 @@
         </p>
 
         <p>
-            Another limitation that this extension tries to solve is the <code>concordion:set</code> command being
-            limited to static values. It would be useful to have a <code>concordion:echo</code> command evaluate
-            an expression and to be able to set the result to a variable using the <code>concordion:set</code>.
+            Another limitation related to the <code>concordion:set</code> command is that it can only set static values.
+            It would be useful to have a <code>concordion:echo</code> command evaluate an expression and to be able to
+            set the result to a variable using the <code>concordion:set</code>.
+        </p>
+
+        <h1>Solution</h1>
+
+        <p>
+            The set var extension solves these problems with a few awesome <a
+                href="latest/org/chiknrice/concordion/spec/Spec.html">commands</a> which build test data within the
+            specification html (no need to call <code>execute</code> while setting up pre-conditions). This extension
+            also introduces the concept of <code>eval</code> which evaluates expressions prior to building the complex
+            data structures needed. As a bonus, a <code>tooltip</code> command is included to help make your specs more
+            concise.
+        </p>
+
+        <h1>Usage</h1>
+
+        <p>
+            To use the extension, the fixture classes should be annotated with the following:
+            <pre>
+    @RunWith(ConcordionRunner.class)
+    <span class="highlight">@Extensions(SetVarCommandExtension.class)</span>
+    public class SampleFixture {
+    }
+            </pre>
         </p>
 
         <p>
-            The set var extension solves these problems with <a href="latest/org/chiknrice/concordion/spec/Spec.html">commands</a>
-            which build test data within the specification html. This extension also introduces the concept of <code>eval</code>
-            which evaluates expressions prior to building the complex data structures needed.
+            And the html spec files should declare the following namespace using any non conflicting prefix:
+            <pre>
+    &lt;html lang=&quot;en&quot; xmlns:c=&quot;http://www.concordion.org/2007/concordion&quot;
+          <span class="highlight">xmlns:i=&quot;http://www.chiknrice.org/concordion&quot;</span>&gt;
+            </pre>
         </p>
 
     </section>

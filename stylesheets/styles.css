@@ -660,6 +660,10 @@ pre code {
   padding: 0;
 }
 
+pre span.highlight {
+  color: #ffcc00;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
