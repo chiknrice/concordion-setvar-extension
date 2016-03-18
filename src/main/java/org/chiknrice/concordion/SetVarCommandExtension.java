@@ -36,6 +36,7 @@ public class SetVarCommandExtension implements ConcordionExtension {
         concordionExtender.withCommand(NAMESPACE, SET_MAP, new SetMapCommand());
         concordionExtender.withCommand(NAMESPACE, SET_LIST, new SetListCommand());
         concordionExtender.withCommand(NAMESPACE, SET, new SetEvalCommand());
+        concordionExtender.withCommand(NAMESPACE, SET_RESOURCE, new SetResourceCommand());
         concordionExtender.withCommand(NAMESPACE, CONCAT, new ConcatCommand());
         concordionExtender.withCommand(NAMESPACE, TOOLTIP, new TooltipCommand());
         concordionExtender.withLinkedCSS(CSS_SOURCE_PATH, CSS_TARGET_RESOURCE);

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:c="http://www.concordion.org/2007/concordion" xmlns:i="http://www.chiknrice.org/concordion">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Set Resource Command</title>
+</head>
+<body>
+
+<h1>Set Resource Command</h1>
+
+<p>
+    <code>setResource</code> command allows for the contents of a resource in the classpath to be set as the value of a
+    variable and appended as the body of the element where <code>setResource</code> command is used.  The resource path
+    is specified via the <code>path</code> command.  The resource path given should be relative to the spec that uses
+    the resource.
+</p>
+
+<div class="example">
+
+    <p>
+        <b>Given</b> a file SetResourceSpecSample.xml exists in the same location as this spec, an empty <code>pre</code>
+        instrumented with <code>setResource="#xmlContent"</code> and <code>path="SetResourceSpecSample.xml"</code> should
+        display the content of SetResourceSpecSample.xml below:
+        <pre i:setResource="#xmlContent" i:path="SetResourceSpecSample.xml"/>
+    </p>
+
+    <p>
+        <b>And</b> an empty <code>pre</code> instrumented with <code>echo="#xmlContent"</code> should display the same
+        content below:
+        <pre c:echo="#xmlContent" />
+    </p>
+
+</div>
+
+</body>
+</html>

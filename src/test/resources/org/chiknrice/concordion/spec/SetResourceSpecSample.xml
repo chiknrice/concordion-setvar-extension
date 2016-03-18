@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sample>
+    <sub-element sample-attribute="sample-attribute-value">
+        <sample-empty-element/>
+        <sample-element-with-body>
+            Sample body
+        </sample-element-with-body>
+        <sample-mixed-element another-sample-attribute="another-sample-attribute-value">
+            Another sample body
+        </sample-mixed-element>
+    </sub-element>
+</sample>

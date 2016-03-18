@@ -12,6 +12,8 @@ public class Const {
     public static final String VALUE = "value";
     public static final String SET_LIST = "setList";
     public static final String SET = "set";
+    public static final String SET_RESOURCE = "setResource";
+    public static final String PATH = "path";
     public static final String CONCAT = "concat";
     public static final String TOOLTIP = "tooltip";
     public static final String EVAL = "eval";
